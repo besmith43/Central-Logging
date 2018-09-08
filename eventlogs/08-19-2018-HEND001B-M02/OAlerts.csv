@@ -1,0 +1,422 @@
+#TYPE System.Diagnostics.EventLogEntry#OAlerts/Microsoft Office 16 Alerts/300
+"EventID","MachineName","Data","Index","Category","CategoryNumber","EntryType","Message","Source","ReplacementStrings","InstanceId","TimeGenerated","TimeWritten","UserName","Site","Container"
+"300","HEND001B-M02.tntech.edu","System.Byte[]","54","(0)","0","Information","Microsoft Outlook
+We can't save your rule yet because a value is missing. To set it, click the underlined text in the rule description area.
+P1: 301362
+P2: 16.0.4717.1000
+P3: aldbzP4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/18/2018 8:11:30 PM","8/18/2018 8:11:30 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","53","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08172018-Multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/17/2018 2:56:40 PM","8/17/2018 2:56:40 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","52","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08172018-Multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/17/2018 2:51:27 PM","8/17/2018 2:51:27 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","51","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/17/2018 2:51:21 PM","8/17/2018 2:51:21 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","50","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08162018-PENN128-D01.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/16/2018 10:42:47 AM","8/16/2018 10:42:47 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","49","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08162018-MATT312-D01.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/16/2018 10:40:43 AM","8/16/2018 10:40:43 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","48","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/16/2018 10:38:52 AM","8/16/2018 10:38:52 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","47","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08162018-PENN128-D01.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/16/2018 10:38:49 AM","8/16/2018 10:38:49 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","46","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/16/2018 10:38:43 AM","8/16/2018 10:38:43 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","45","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/16/2018 10:38:22 AM","8/16/2018 10:38:22 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","44","(0)","0","Information","Microsoft Outlook
+Want to save your changes?
+P1: 300191
+P2: 16.0.4717.1000
+P3: aldbzP4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/15/2018 4:12:41 PM","8/15/2018 4:12:41 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","43","(0)","0","Information","Microsoft Outlook
+Want to save your changes?
+P1: 300191
+P2: 16.0.4717.1000
+P3: aldbzP4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/14/2018 12:06:30 PM","8/14/2018 12:06:30 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","42","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08142018-multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/14/2018 10:07:22 AM","8/14/2018 10:07:22 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","41","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/14/2018 10:01:25 AM","8/14/2018 10:01:25 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","40","(0)","0","Information","Microsoft Excel
+Cannot open the Clipboard.
+P1: 100181
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/14/2018 9:58:57 AM","8/14/2018 9:58:57 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","39","(0)","0","Information","Activated App
+Id=7a774f0c-7a6f-11e0-85ad-07fb4824019b, DisplayName=Bing Maps, Provider=Microsoft, StoreType=Exchange, StoreId=7F42C6202386D94A92191382075B917C
+P1: Apps for Office
+P2: 16.0.4639.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/13/2018 2:52:59 PM","8/13/2018 2:52:59 PM","TTU\besmith",,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","38","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08132018-mutliple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/13/2018 2:51:11 PM","8/13/2018 2:51:11 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","37","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/13/2018 2:46:01 PM","8/13/2018 2:46:01 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","36","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08092018-Multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/9/2018 9:46:46 AM","8/9/2018 9:46:46 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","35","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/9/2018 9:28:36 AM","8/9/2018 9:28:36 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","34","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08092018-Multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/9/2018 9:28:32 AM","8/9/2018 9:28:32 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","33","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/9/2018 9:28:26 AM","8/9/2018 9:28:26 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","32","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 2:36:02 PM","8/2/2018 2:36:02 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","31","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08022018-multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 2:35:57 PM","8/2/2018 2:35:57 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","30","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 2:25:46 PM","8/2/2018 2:25:46 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","29","(0)","0","Information","Microsoft Excel
+Want to save your changes to '07272018-BRUN116-D04.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 2:25:46 PM","8/2/2018 2:25:46 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","28","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 2:25:41 PM","8/2/2018 2:25:41 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","27","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 11:47:28 AM","8/2/2018 11:47:28 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","26","(0)","0","Information","Microsoft Excel
+Want to save your changes to '08022018-multiple.csv'?
+P1: 100216
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 11:47:24 AM","8/2/2018 11:47:24 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","25","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4717.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/2/2018 11:42:53 AM","8/2/2018 11:42:53 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","24","(0)","0","Information","Microsoft Outlook
+Cannot expand the folder. The file C:\Users\besmith\AppData\Local\Microsoft\Outlook\katesquacky01@gmail.com.ost cannot be accessed because another workstation has modified it. Close and then restart all mail-enabled applications. You might need to restart your computer.
+P1: 300032
+P2: 16.0.4705.1001
+P3: 
+P4: 0x80040119
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 1:14:51 PM","8/1/2018 1:14:51 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","23","(0)","0","Information","Microsoft Outlook
+Cannot expand the folder. The file C:\Users\besmith\AppData\Local\Microsoft\Outlook\besmith43@gmail.com.ost cannot be accessed because another workstation has modified it. Close and then restart all mail-enabled applications. You might need to restart your computer.
+P1: 300032
+P2: 16.0.4705.1001
+P3: 
+P4: 0x80040119
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 1:14:28 PM","8/1/2018 1:14:28 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","22","(0)","0","Information","Microsoft Outlook
+Cannot expand the folder. The file C:\Users\besmith\AppData\Local\Microsoft\Outlook\besmith43@gmail.com.ost cannot be accessed because another workstation has modified it. Close and then restart all mail-enabled applications. You might need to restart your computer.
+P1: 300032
+P2: 16.0.4705.1001
+P3: aldbzP4: 0x80040119
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 1:14:23 PM","8/1/2018 1:14:23 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","21","(0)","0","Information","Microsoft Excel
+Want to save your changes to '080118-BRUN333&308.csv'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 9:42:59 AM","8/1/2018 9:42:59 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","20","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 9:33:52 AM","8/1/2018 9:33:52 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","19","(0)","0","Information","Microsoft Excel
+Want to save your changes to '012918-PRSC350-D01.csv'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 9:33:49 AM","8/1/2018 9:33:49 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","18","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","8/1/2018 9:33:41 AM","8/1/2018 9:33:41 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","17","(0)","0","Information","Microsoft Outlook
+We haven't finished checking your spelling.
+
+Send anyway?
+P1: 300798
+P2: 16.0.4705.1001
+P3: aldbzP4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/30/2018 2:03:17 PM","7/30/2018 2:03:17 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","16","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/30/2018 1:46:18 PM","7/30/2018 1:46:18 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","15","(0)","0","Information","Microsoft Excel
+Want to save your changes to '07302017-OAKL224-D01.csv'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/30/2018 1:46:16 PM","7/30/2018 1:46:16 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","14","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/30/2018 1:46:11 PM","7/30/2018 1:46:11 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","13","(0)","0","Information","Microsoft OneNote
+Are you sure you want to move the following section to this notebook's Recycle Bin?
+
+New Section 1
+P1: 0
+P2: 16.0.4693.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 3:04:24 PM","7/26/2018 3:04:24 PM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","12","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 11:42:08 AM","7/26/2018 11:42:08 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","11","(0)","0","Information","Microsoft Excel
+Want to save your changes to '07272017-PRSC424-D01.csv'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 11:42:04 AM","7/26/2018 11:42:04 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","10","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 11:42:01 AM","7/26/2018 11:42:01 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","9","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 8:25:19 AM","7/26/2018 8:25:19 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","8","(0)","0","Information","Microsoft Excel
+Want to save your changes to '07232018-PENN205-Printer.csv'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 8:25:16 AM","7/26/2018 8:25:16 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","7","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/26/2018 8:25:07 AM","7/26/2018 8:25:07 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","6","(0)","0","Information","Microsoft Outlook
+Want to save your changes?
+P1: 300191
+P2: 16.0.4705.1001
+P3: aldbzP4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/25/2018 11:31:38 AM","7/25/2018 11:31:38 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","5","(0)","0","Information","Microsoft Excel
+Want to save your changes to 'New-English-Systems.csv'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/24/2018 8:49:30 AM","7/24/2018 8:49:30 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","4","(0)","0","Information","Microsoft Excel
+Some features in your workbook might be lost if you save it as CSV (Comma delimited).
+
+Do you want to keep using that format?
+P1: 100318
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/24/2018 8:47:38 AM","7/24/2018 8:47:38 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","3","(0)","0","Information","Microsoft Excel
+Want to save your changes to 'New-English-Systems.xlsx'?
+P1: 100216
+P2: 16.0.4705.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/24/2018 8:46:16 AM","7/24/2018 8:46:16 AM",,,
+"300","HEND001B-M02.tntech.edu","System.Byte[]","2","(0)","0","Information","Activated App
+Id=f60b8ac7-c3e3-4e42-8dad-e4e1fea59ff7, DisplayName=Action Items, Provider=Microsoft, StoreType=Exchange, StoreId=7F42C6202386D94A92191382075B917C
+P1: Apps for Office
+P2: 16.0.4639.1000
+P3: 
+P4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/16/2018 9:19:08 PM","7/16/2018 9:19:08 PM","TTU\besmith",,
+"300","MATT141-M02.tntech.edu","System.Byte[]","1","(0)","0","Information","Microsoft OneNote
+Microsoft OneNote is not currently your default program for OneNote hyperlinks.
+Would you like to change the current associations?
+P1: 0
+P2: 16.0.4693.1000
+P3: a36gbP4: 
+","Microsoft Office 16 Alerts","System.String[]","300","7/16/2018 10:06:30 AM","7/16/2018 10:06:30 AM",,,

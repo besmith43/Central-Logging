@@ -1,0 +1,26 @@
+$task = get-scheduledtask -taskname "Log System Performance"
+
+if ($task)
+{
+	unregister-scheduledtask -taskname "Log System Performance"
+}
+
+$temppath = get-item -path "C:\Temp"
+
+if (!$temppath)
+{
+	new-item -itemtype directory -path "C:\Temp"
+	$(get-item -path P:\Temp\ -Force).attributes = "Hidden"
+}
+
+$sysperfpath = get-item -path "C:\Temp\SysPerf"
+
+if (!$sysperfpath)
+{
+	new-item -itemtype directory -path "C:\Temp\SysPerf"
+}
+
+$action = new-scheduledtaskaction -execute powershell.exe -argumentlist $("-EncodedCommand LgBcAGwAbwBnAC0AcwB5AHMAcABlAHIAZgAuAHAAcwAxAA==")
+$trigger = new-scheduledtasktrigger -once -at (get-date) -repetitioninterval (new-timespan -minutes 1)
+
+register-scheduledtask -action $action -trigger $trigger -user "NT AUTHORITY\SYSTEM" -taskname "Log System Performance" -description "runs script to log system performance of average processor load and ram usage"
