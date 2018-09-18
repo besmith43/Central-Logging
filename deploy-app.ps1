@@ -29,11 +29,11 @@ else
 
 # get root OU of College
 
-get-ADOrganizationalUnit -searchbase $OU searchscope Subtree -Filter * -credential $Credential | select-object name, DistinguishedName
+get-ADOrganizationalUnit -searchbase $OU -searchscope Subtree -Filter * -credential $Credential | select-object name, DistinguishedName
 
 # get whitelist of systems that already have it installed
 
-get-adcomputer -filter * -searchbase $OU | select-object name, DistinguishedName
+$computers = get-adcomputer -filter * -searchbase $OU -property *
 
 $whitelist = get-content "$PSScriptRoot\whitelist.txt"
 
@@ -43,12 +43,22 @@ $tobesetup = @()
 
 foreach ($computer in $computers)
 {
-	$match = $whitelist | select-string $computer.name
-
-	if (!$match)
+	if ($computer.operatingsystemversion -match "10.0")
 	{
-		$string = $computername.name | out-string
-		$tobesetup += $string
+		$comp_name = $computer.name
+		
+		$ending = $comp_name.substring($comp_name.get_length() - 3)
+		
+		if ($ending -match "D")
+		{
+			$match = $whitelist | select-string $computer.name
+
+			if (!$match)
+			{
+				$string = $computername.name | out-string
+				$tobesetup += $string
+			}
+		}
 	}
 }
 
@@ -67,17 +77,15 @@ foreach ($computer in $tobesetup)
 	$performancetask = $Null
 	$directorystructure = $Null
 
-    # need to fix this
+	invoke-command -session $session -scriptblock {
 
-	#invoke-command -session $session -scriptblock {
+		$Using:collectiontask = get-scheduledtask -taskname "Log System Information"
 
-	#	$Using:collectiontask = get-scheduledtask -taskname "Log System Information"
+		$Using:performancetask = get-scheduledtask -taskname "Log System Performance"
 
-	#	$Using:performancetask = get-scheduledtask -taskname "Log System Performance"
+		$Using:directorystructure = get-path -path "C:\Temp\SysPerf"
 
-	#	$Using:directorystructure = get-path -path "C:\Temp\SysPerf"
-
-	#}
+	}
 
 	# copy files into directory structure
 
@@ -85,9 +93,12 @@ foreach ($computer in $tobesetup)
 	{
 		new-psdrive -name "P" -root "\\$computer\c$" -PSProvider "FileSystem" -credential $credential
 
-		new-item -erroraction ignore -itemtype Directory -path P:\Temp\
+		if (!$(get-item -path P:\Temp\))
+		{
+			new-item -erroraction ignore -itemtype Directory -path P:\Temp\
 
-		$(get-item -path P:\Temp\ -Force).attributes = "Hidden"
+			$(get-item -path P:\Temp\ -Force).attributes = "Hidden"
+		}
 
 		copy-item -path "$PSScriptRoot\SysPerf" -Destination "P:\Temp\SysPerf\"
 
