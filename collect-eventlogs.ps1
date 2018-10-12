@@ -1,12 +1,31 @@
-# get credentials
+function set-log
+{
+	param (
+		[string]$message,
+		[string]$logfile
+	)
 
-$user = "TTU\besmith2"
+	write-host $message
 
-$pass_plain = get-content "password.txt"
+	$date = get-date -format g
 
-$pass = $pass_plain | Convertto-securestring -asplaintext -force
+	$message = "$message - $date"
 
-$credential = New-Object -typename "System.Management.Automation.PSCredential" -argumentlist $user,$pass
+	if (!$(test-path -path "$PSScriptRoot\Logs"))
+	{
+		new-item -path "$PSScriptRoot\Logs\" -ItemType Directory
+	}
+
+	if (test-path -path "$PSScriptRoot\Logs\$logfile")
+	{
+		$message | out-file -filepath "$PSScriptRoot\Logs\$logfile" -append
+	}
+	else
+	{
+		new-item -path "$PSScriptRoot\Logs\$logfile" -ItemType "file"
+		$message | out-file -filepath "$PSScriptRoot\Logs\$logfile" -append
+	}
+}
 
 # get date for folder name
 
@@ -23,30 +42,58 @@ foreach ($computer in $whitelist)
 
 	# test connection to computer
 
-	if (test-connection -computername $computer -quiet)
+	if (test-connection -computername $computer -quiet -count 1)
 	{
 
 		# if successful; new-pssession
 
-		$session = new-pssession -computername $computer -credential $credential
+		set-log -message "Attempting to connect to $computer" -logfile "Collection-log-$date.txt"
+
+		$session = new-pssession -computername $computer
+
+		if (!$session)
+		{
+			set-log -message "remote session failed to $computer" -logfile "Collection-log-$date.txt"
+			continue
+		}
 
 		# get-eventlog to csv to C:\temp\sysperf\logs
+
+		set-log -message "exporting eventlogs to csv on $computer" -logfile "Collection-log-$date.txt"
 
 		$eventlogjob = invoke-command -session $session -scriptblock {
 
 			new-item -erroraction ignore -itemtype directory -path C:\Temp\SysPerf\Eventlogs
 
-			get-eventlog -logname "SysPerf" | export-csv "C:\Temp\SysPerf\Eventlogs\SysPerf.csv"
+			if ([System.Diagnostics.EventLog]::Exists('SysPerf'))
+			{
+				get-eventlog -logname "SysPerf" | export-csv "C:\Temp\SysPerf\Eventlogs\SysPerf.csv"
+			}
 
-			get-eventlog -logname "Application" | export-csv "C:\Temp\SysPerf\Eventlogs\Application.csv"
+			if ([System.Diagnostics.Eventlog]::Exists('Application'))
+			{
+				get-eventlog -logname "Application" | export-csv "C:\Temp\SysPerf\Eventlogs\Application.csv"
+			}
 
-			get-eventlog -logname "OAlerts" | export-csv "C:\Temp\SysPerf\Eventlogs\OAlerts.csv"
+			if ([System.Diagnostics.Eventlog]::Exists('OAlerts'))
+			{
+				get-eventlog -logname "OAlerts" | export-csv "C:\Temp\SysPerf\Eventlogs\OAlerts.csv"
+			}
 
-			get-eventlog -logname "Security" | export-csv "C:\Temp\SysPerf\Eventlogs\Security.csv"
+			if ([System.Diagnostics.Eventlog]::Exists('Security'))
+			{
+				get-eventlog -logname "Security" | export-csv "C:\Temp\SysPerf\Eventlogs\Security.csv"
+			}
 
-			get-eventlog -logname "System" | export-csv "C:\Temp\SysPerf\Eventlogs\System.csv"
+			if ([System.Diagnostics.Eventlog]::Exists('System'))
+			{
+				get-eventlog -logname "System" | export-csv "C:\Temp\SysPerf\Eventlogs\System.csv"
+			}
 
-			get-eventlog -logname "Windows Powershell" | export-csv "C:\Temp\SysPerf\Eventlogs\Powershell.csv"
+			if ([System.Diagnostics.Eventlog]::Exists('Windows Powershell'))
+			{
+				get-eventlog -logname "Windows Powershell" | export-csv "C:\Temp\SysPerf\Eventlogs\Powershell.csv"
+			}
 
 		} -AsJob
 
@@ -65,12 +112,16 @@ foreach ($computer in $whitelist)
 		$cleanupjob = invoke-command -session $session -scriptblock { remove-item -path "C:\Temp\SysPerf\Eventlogs\*.csv" } -AsJob
 		$cleanupjob | wait-job
 
-	}
+		Remove-PSSession -Session $session
 
-		# else; send email with computer name to besmith@tntech.edu
+		set-log -message "starting script to process eventlogs collected from $computer" -logfile "Collection-log-$date.txt"
+		
+		$Command = "$PSScriptRoot\process-eventlog.ps1 -hostname $computer -date $date.ToString()"
+
+		Invoke-Expression -Command $Command
+	}
 	else
 	{
-		send-mailmessage -to besmith@tntech.edu -subject "Collect Eventlog Failed" -body "$computer was not online when an attempt was made to collect its eventlogs for the sysperf application"
+		set-log -message "$computer was not online on $date" -logfile "Collection-log-$date.txt"
 	}
-
 }

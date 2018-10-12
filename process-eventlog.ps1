@@ -1,6 +1,6 @@
 param (
 	[string]$hostname,
-	[string]$folderpath
+	[string]$date
 )
 
 class averagecpuload
@@ -38,9 +38,45 @@ class ramused
 	[int]$amountoframused
 }
 
-#$logs = import-csv "$PSScriptRoot\eventlogs\sysperf.csv"
+function set-log
+{
+	param (
+		[string]$message,
+		[string]$logfile
+	)
 
-$logs = import-csv "$folderpath\sysperf.csv"
+	write-host $message
+
+	$date = get-date -format g
+
+	$message = "$message - $date"
+
+	if (!$(test-path -path "$PSScriptRoot\Logs"))
+	{
+		new-item -path "$PSScriptRoot\Logs\" -ItemType Directory
+	}
+
+	if (test-path -path "$PSScriptRoot\Logs\$logfile")
+	{
+		$message | out-file -filepath "$PSScriptRoot\Logs\$logfile" -append
+	}
+	else
+	{
+		new-item -path "$PSScriptRoot\Logs\$logfile" -ItemType "file"
+		$message | out-file -filepath "$PSScriptRoot\Logs\$logfile" -append
+	}
+}
+
+#$logs = import-csv "$PSScriptRoot\eventlogs\sysperf.csv"
+if (test-path -path "$PSScriptRoot\Eventlogs\$hostname\$date\sysperf.csv")
+{
+	$logs = import-csv "$PSScriptRoot\Eventlogs\$hostname\$date\sysperf.csv"
+}
+else
+{
+	set-log -message "SysPerf.csv does not exist for $hostname on $date" -logfile "process-log-$date.txt"
+	exit
+}
 
 $averageload = @()
 $numprocesses = @()
@@ -339,11 +375,11 @@ $installedprograms = $installedprograms | select-object -uniq
 
 import-module "$PSScriptRoot\PoshCharts-Dev\PoshCharts\PoshCharts.psm1"
 
-$averageload | out-barchart -XField time -YField average -Title "Average CPU Load over time" -includelegend -tofile "$PSScriptRoot\averagecpuload.jpeg" 2> $null
+$averageload | out-barchart -XField time -YField average -Title "Average CPU Load over time" -includelegend -tofile "$PSScriptRoot\eventlogs\$hostname\$date\averagecpuload.jpeg" 2> $null
 
-$numprocesses | out-barchart -XField time -YField numofprocesses -Title "The number of Processes over time" -includelegend -tofile "$PSScriptRoot\numberofprocesses.jpeg" 2> $null
+$numprocesses | out-barchart -XField time -YField numofprocesses -Title "The number of Processes over time" -includelegend -tofile "$PSScriptRoot\eventlogs\$hostname\$date\numberofprocesses.jpeg" 2> $null
 
-$ramusage | out-barchart -XField time -YField amountoframused -Title "The amount of System RAM used over time" -includelegend -tofile "$PSScriptRoot\amountoframused.jpeg" 2> $null
+$ramusage | out-barchart -XField time -YField amountoframused -Title "The amount of System RAM used over time" -includelegend -tofile "$PSScriptRoot\eventlogs\$hostname\$date\amountoframused.jpeg" 2> $null
 
 $Word = New-Object -ComObject Word.Application
 
@@ -355,9 +391,9 @@ $Selection.TypeParagraph()
 $Selection.TypeParagraph()
 $Selection.TypeText("Model of CPU: $cpu")
 $Selection.TypeParagraph()
-$Selection.InlineShapes.AddPicture("$PSScriptRoot\averagecpuload.jpeg") 1> $Null
+$Selection.InlineShapes.AddPicture("$PSScriptRoot\eventlogs\$hostname\$date\averagecpuload.jpeg") 1> $Null
 $Selection.TypeParagraph()
-$Selection.InlineShapes.AddPicture("$PSScriptRoot\numberofprocesses.jpeg") 1> $Null
+$Selection.InlineShapes.AddPicture("$PSScriptRoot\eventlogs\$hostname\$date\numberofprocesses.jpeg") 1> $Null
 $Selection.TypeParagraph()
 $Selection.TypeParagraph()
 $Selection.TypeParagraph()
@@ -365,7 +401,7 @@ $Selection.TypeText("RAM")
 $Selection.TypeParagraph()
 $Selection.TypeText("$ram")
 $Selection.TypeParagraph()
-$Selection.InlineShapes.AddPicture("$PSScriptRoot\amountoframused.jpeg") 1> $Null
+$Selection.InlineShapes.AddPicture("$PSScriptRoot\eventlogs\$hostname\$date\amountoframused.jpeg") 1> $Null
 $Selection.TypeParagraph()
 $Selection.TypeText("Hard Drives")
 $Selection.TypeParagraph()
@@ -408,7 +444,7 @@ foreach ($program in $installedprograms)
 	$Selection.TypeText("$program")
 }
 
-$Report = "$PSScriptRoot\testing.doc"
+$Report = "$PSScriptRoot\Processed-Logs\$hostname-$date.doc"
 $Document.SaveAs([ref]$Report,[ref]$SaveFormat::wdFormatDocument)
 $word.Quit()
 

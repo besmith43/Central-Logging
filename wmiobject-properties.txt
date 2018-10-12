@@ -1,1 +1,0 @@
-get-wmiobject -class win32_physicalmemory | Get-Member -MemberType Property

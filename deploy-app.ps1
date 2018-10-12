@@ -1,5 +1,5 @@
 param (
-[System.Management.Automation.PSCredential]$Credential,
+#[System.Management.Automation.PSCredential]$Credential,
 [string]$CollegeOU,
 [switch]$version
 )
@@ -11,16 +11,41 @@ if ($version)
     exit
 }
 
-import-module ActiveDirectory
-
-if (!$Credential)
+function set-log
 {
-	$Credential = get-credential
+	param (
+		[string]$message,
+		[string]$logfile
+	)
+
+	write-host $message
+
+	$date = get-date -format g
+
+	$message = "$message - $date"
+
+	if (!$(test-path -path "$PSScriptRoot\Logs"))
+	{
+		new-item -path "$PSScriptRoot\Logs\" -ItemType Directory
+	}
+
+	if (test-path -path "$PSScriptRoot\Logs\$logfile")
+	{
+		$message | out-file -filepath "$PSScriptRoot\Logs\$logfile" -append
+	}
+	else
+	{
+		new-item -path "$PSScriptRoot\Logs\$logfile" -ItemType "file"
+		$message | out-file -filepath "$PSScriptRoot\Logs\$logfile" -append
+	}
 }
+
+import-module ActiveDirectory
 
 if (!$CollegeOU)
 {
-    $OU = "OU=CoA&S Wks,OU=TTU Workstations,DC=tntech,DC=edu"
+	#$OU = "OU=CoA&S Wks,OU=TTU Workstations,DC=tntech,DC=edu"
+	$OU = "OU=English,OU=CoA&S Wks,OU=TTU Workstations,DC=tntech,DC=edu"
 }
 else
 {
@@ -29,13 +54,20 @@ else
 
 # get root OU of College
 
-get-ADOrganizationalUnit -searchbase $OU -searchscope Subtree -Filter * -credential $Credential | select-object name, DistinguishedName
+#get-ADOrganizationalUnit -searchbase $OU -searchscope Subtree -Filter * | select-object name, DistinguishedName
 
 # get whitelist of systems that already have it installed
 
 $computers = get-adcomputer -filter * -searchbase $OU -property *
 
-$whitelist = get-content "$PSScriptRoot\whitelist.txt"
+if (test-path -path "$PSScriptRoot\whitelist.txt")
+{
+	$whitelist = get-content "$PSScriptRoot\whitelist.txt"
+}
+else
+{
+	new-item -path "$PSScriptRoot\whitelist.txt" -ItemType "file"
+}
 
 $tobesetup = @()
 
@@ -45,17 +77,21 @@ foreach ($computer in $computers)
 {
 	if ($computer.operatingsystemversion -match "10.0")
 	{
+		#write-host "$computer.name is Windows 10"
 		$comp_name = $computer.name
 		
 		$ending = $comp_name.substring($comp_name.get_length() - 3)
 		
 		if ($ending -match "D")
 		{
+			#write-host "$computer.name is a destkop"
 			$match = $whitelist | select-string $computer.name
 
 			if (!$match)
 			{
-				$string = $computername.name | out-string
+				#Write-Host "$computer.name is not a match for the whitelist"
+				$string = $computer.name | out-string
+				$string = $string.Trim()
 				$tobesetup += $string
 			}
 		}
@@ -69,7 +105,23 @@ foreach ($computer in $tobesetup)
 
 	# create PSSession
 
-	$session = new-pssession -computername $computer -credential $credential
+	if (Test-Connection -ComputerName $computer -Count 1 -Quiet)
+	{
+		$session = new-pssession -computername $computer
+
+		if (!$session)
+		{
+			set-log -message "Failed to make connection with $computer"
+			continue
+		}
+
+		set-log -message "Session created with $computer" -logfile "deployment-log.txt"
+	}
+	else
+	{
+		set-log -message "$computer was not online" -logfile "deployment-log.txt"
+		continue
+	}
 
 	# check if 2 triggers are active, directory structure exists, and added to path
 
@@ -77,45 +129,53 @@ foreach ($computer in $tobesetup)
 	$performancetask = $Null
 	$directorystructure = $Null
 
-	invoke-command -session $session -scriptblock {
+	$collectiontask = Invoke-Command -Session $session -ScriptBlock { 
+		$remote_collection_task = Get-ScheduledTask -TaskName "Log System Information" -ErrorAction SilentlyContinue
+		return $remote_collection_task
+	}
 
-		$Using:collectiontask = get-scheduledtask -taskname "Log System Information"
+	$performancetask = Invoke-Command -Session $session -ScriptBlock {
+		$remote_performance_task = Get-ScheduledTask -taskname "Log System Performance" -ErrorAction SilentlyContinue
+		return $remote_performance_task
+	}
 
-		$Using:performancetask = get-scheduledtask -taskname "Log System Performance"
-
-		$Using:directorystructure = get-path -path "C:\Temp\SysPerf"
-
+	$directorystructure = invoke-command -session $session -scriptblock {
+		$remote_directory_structure_test = test-path -path "C:\Temp\SysPerf"
+		return $remote_directory_structure_test
 	}
 
 	# copy files into directory structure
 
 	if (!$directorystructure)
 	{
-		new-psdrive -name "P" -root "\\$computer\c$" -PSProvider "FileSystem" -credential $credential
+		set-log -message "Setting up folder structure on $computer" -logfile "deployment-log.txt"
 
-		if (!$(get-item -path P:\Temp\))
-		{
-			new-item -erroraction ignore -itemtype Directory -path P:\Temp\
+		$directoryjob = Invoke-Command -Session $session -ScriptBlock {
+			if (test-path -path C:\Temp\)
+			{
+				new-item -erroraction ignore -itemtype Directory -path P:\Temp\
 
-			$(get-item -path P:\Temp\ -Force).attributes = "Hidden"
+				$(get-item -path C:\Temp\ -Force).attributes = "Hidden"
+			}
 		}
+		$directoryjob | Wait-Job
 
-		copy-item -path "$PSScriptRoot\SysPerf" -Destination "P:\Temp\SysPerf\"
-
-		get-psdrive P | remove-psdrive
+		copy-item -tosession $session -path "$PSScriptRoot\SysPerf" -Destination "C:\Temp\SysPerf\"
 	}
 
 	# run scripts to create triggers
 
 	if (!$collectiontask)
 	{
-		$collectionJob = invoke-command -session $session -scriptblock { start-process -filepath "C:\Temp\SysPerf\trigger-collection.ps1" -wait } -AsJob
+		set-log -message "triggering daily collection on $computer" -logfile "deployment-log.txt"
+		$collectionJob = invoke-command -session $session -scriptblock { Invoke-Expression -Command "C:\Temp\SysPerf\trigger-collection.ps1" } -AsJob
 		$collectionJob | wait-job
 	}
 
 	if (!$performancetask)
 	{
-		$performancejob = invoke-command -session $session -scriptblock { start-process -filepath "C:\Temp\SysPerf\trigger-sysperf.ps1" -wait } -AsJob
+		set-log -message "triggering sysperf collection on $computer" -logfile "deployment-log.txt"
+		$performancejob = invoke-command -session $session -scriptblock { Invoke-Expression -Command "C:\Temp\SysPerf\trigger-sysperf.ps1" } -AsJob
 		$performancejob | wait-job
 	}
 
