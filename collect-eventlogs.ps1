@@ -101,11 +101,11 @@ foreach ($computer in $whitelist)
 
 		# copy from session
 
-		new-item -erroraction ignore -itemtype directory -path "$PSScriptRoot\$computer\"
+		new-item -erroraction ignore -itemtype directory -path "$PSScriptRoot\EventLogs\$computer\"
 
-		new-item -erroraction ignore -itemtype directory -path "$PSScriptRoot\$computer\$date\"
+		new-item -erroraction ignore -itemtype directory -path "$PSScriptRoot\EventLogs\$computer\$date\"
 
-		copy-item -fromsession $session -path "C:\Temp\SysPerf\Eventlogs\*.csv" -Destination "$PSScriptRoot\$computer\$date\" -recurse
+		copy-item -fromsession $session -path "C:\Temp\SysPerf\Eventlogs\*.csv" -Destination "$PSScriptRoot\EventLogs\$computer\$date\" -recurse
 
 		# delete original and clear eventlogs
 

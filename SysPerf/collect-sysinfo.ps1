@@ -18,6 +18,7 @@
 if (![system.diagnostics.eventlog]::sourceexists("daily collection"))
 {
 	new-eventlog -logname "SysPerf" -source "daily collection"
+	limit-eventlog -logname "SysPerf" -MaximumSize 1GB
 }
 
 $hdds = get-wmiobject -class win32_logicaldisk | select deviceid, volumename, size, freespace | out-string

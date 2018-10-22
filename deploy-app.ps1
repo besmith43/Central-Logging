@@ -123,6 +123,16 @@ foreach ($computer in $tobesetup)
 		continue
 	}
 
+	# Setting Execution Policy
+
+	$exejob = Invoke-Command -Session $session -ScriptBlock {
+		if ($(Get-ExecutionPolicy) -ne "Unrestricted")
+		{
+			Set-ExecutionPolicy Unrestricted
+		}
+	}
+	$exejob | Wait-Job
+
 	# check if 2 triggers are active, directory structure exists, and added to path
 
 	$collectiontask = $Null
@@ -159,9 +169,19 @@ foreach ($computer in $tobesetup)
 			}
 		}
 		$directoryjob | Wait-Job
-
-		copy-item -tosession $session -path "$PSScriptRoot\SysPerf" -Destination "C:\Temp\SysPerf\"
 	}
+
+	# testing that C:\Temp is hidden  (also for good measure)
+	$hiddenjob = Invoke-Command -Session $session -ScriptBlock {
+		if (!$($(get-item -path C:\Temp\ -Force).Attributes -match "Hidden"))
+		{
+			$(get-item -path C:\Temp\ -Force).attributes = "Hidden"
+		}
+	}
+	$hiddenjob | Wait-Job
+
+	# copying the files over regardless of the folder structure (basically for good measure)
+	copy-item -tosession $session -path "$PSScriptRoot\SysPerf\" -Destination "C:\Temp\" -Recurse -Force
 
 	# run scripts to create triggers
 

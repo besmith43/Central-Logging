@@ -10,7 +10,8 @@
 
 if (![system.diagnostics.eventlog]::sourceexists("perf"))
 {
-	net-eventlog -logname "SysPerf" -source "perf"
+	new-eventlog -logname "SysPerf" -source "perf"
+    limit-eventlog -logname "SysPerf" -MaximumSize 1GB
 }
 
 $cpu_averageload = get-wmiobject -class win32_processor | measure-object -property LoadPercentage -Average | select-object Average | out-string
