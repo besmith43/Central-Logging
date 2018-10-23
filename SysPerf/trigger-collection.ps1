@@ -1,4 +1,4 @@
-$action = new-scheduledtaskaction -execute powershell.exe -argument $("-command 'C:\Temp\SysPerf\collect-sysinfo.ps1'")
+$action = new-scheduledtaskaction -execute powershell.exe -argument $("-Noninteractive -NoProfile -ExecutionPolicy Bypass -command C:\Temp\SysPerf\collect-sysinfo.ps1")
 $trigger = new-scheduledtasktrigger -daily -at 9am 
 $settings = new-scheduledtasksettingsset -dontstopifgoingonbatteries -startwhenavailable
 

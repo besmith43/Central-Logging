@@ -105,7 +105,11 @@ foreach ($computer in $whitelist)
 
 		new-item -erroraction ignore -itemtype directory -path "$PSScriptRoot\EventLogs\$computer\$date\"
 
-		copy-item -fromsession $session -path "C:\Temp\SysPerf\Eventlogs\*.csv" -Destination "$PSScriptRoot\EventLogs\$computer\$date\" -recurse
+		copy-item -FromSession $session -path "C:\Temp\SysPerf\Eventlogs\" -Destination "$PSScriptRoot\EventLogs\$computer\$date\" -Recurse
+
+		move-item -path "$PSScriptRoot\EventLogs\$computer\$date\Eventlogs\*.csv" -Destination "$PSScriptRoot\EventLogs\$computer\$date\"
+
+		remove-item -Path "$PSScriptRoot\EventLogs\$computer\$date\Eventlogs\"
 
 		# delete original and clear eventlogs
 
@@ -116,7 +120,7 @@ foreach ($computer in $whitelist)
 
 		set-log -message "starting script to process eventlogs collected from $computer" -logfile "Collection-log-$date.txt"
 		
-		$Command = "$PSScriptRoot\process-eventlog.ps1 -hostname $computer -date $date.ToString()"
+		$Command = "$PSScriptRoot\process-eventlog.ps1 -hostname $computer -date $date"
 
 		Invoke-Expression -Command $Command
 	}
