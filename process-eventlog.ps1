@@ -78,6 +78,9 @@ else
 	exit
 }
 
+$bootdrivefull= $false
+$numcpuaverages = 0
+$averageramusage = 0
 $averageload = @()
 $numprocesses = @()
 $numusers = @()
@@ -102,6 +105,11 @@ foreach ($log in $logs)
 
 	$time = $log.("TimeGenerated")
 
+	if ([datetime]$time -lt $((get-date).addDays(-7)))
+	{
+		continue
+	}
+
 	$source = $log.("Source")
 
 	# check if cpu, eventid 1
@@ -122,7 +130,10 @@ foreach ($log in $logs)
 			$currentaverage = new-object averagecpuload
 			$currentaverage.time = $time
 			$currentaverage.average = $message
+			
 			$averageload += $currentaverage
+
+			$numcpuaverages += 1
 		}
 
 		# if contains maxnumberofprocesses; then pull numberofprocesses and numberofusers
@@ -224,6 +235,8 @@ foreach ($log in $logs)
 			$amountr.amountoframused = $amountramused
 
 			$ramusage += $amountr
+
+			$averageramusage += 1
 		}
 
 		if ($source -match "daily collection")
@@ -269,8 +282,15 @@ foreach ($log in $logs)
 				$hdd1driveletter = $hdd1[0]
 				$hdd1size = [math]::Round($([int64]$hdd1[$($hhd1count-2)] / 1GB))
 				$hdd1freespace = [math]::Round($([int64]$hdd1[$($hdd1count-1)] / 1GB))
+				$hdd1string = "$hdd1driveletter    $hdd1freespace    $hdd1size"
+				$hdd += [string]$hdd1string
 
-				$hdd += [string]$($hdd1driveletter,$hdd1freespace,$hdd1size)
+				$hdd1percentfree = $hdd1freespace / $hdd1size
+
+				if ($hdd1percentfree -le 0.15)
+				{
+					$bootdrivefull = $true
+				}
 
 				$hdd2 = $hdd2.split(" ")
 				$hdd2count = $hdd2.count
@@ -279,7 +299,8 @@ foreach ($log in $logs)
 					$hdd2driveletter = $hdd2[0]
 					$hdd2size = [math]::Round($([int64]$hdd2[$($hhd1count-2)] / 1GB))
 					$hdd2freespace = [math]::Round($([int64]$hdd2[$($hdd1count-1)] / 1GB))
-					$hdd += [string]$($hdd2driveletter,$hdd2freespace,$hdd2size)
+					$hdd2string = "$hdd2driveletter    $hdd2freespace    $hdd2size"
+					$hdd += [string]$hdd2string
 				}
 
 				$hdd3 = $hdd3.split(" ")
@@ -289,7 +310,8 @@ foreach ($log in $logs)
 					$hdd3driveletter = $hdd3[0]
 					$hdd3size = [math]::Round($([int64]$hdd3[$($hhd1count-2)] / 1GB))
 					$hdd3freespace = [math]::Round($([int64]$hdd3[$($hdd1count-1)] / 1GB))
-					$hdd += [string]$($hdd3driveletter,$hdd3freespace,$hdd3size)
+					$hdd3string = "$hdd3driveletter    $hdd3freespace    $hdd3size"
+					$hdd += [string]$hdd3string
 				}
 			}	
 		}
@@ -369,6 +391,32 @@ foreach ($log in $logs)
 	}
 }
 
+# now to cushion the data collected
+
+# get the overall average cpu time
+
+$averagecpuloadtotal = 0
+
+foreach ($cpuload in $averageload)
+{
+	$averagecpuloadtotal += $cpuload.average
+}
+
+$averagecpuloadtotal = $averagecpuloadtotal / $numcpuaverages
+
+# get overall average ram usage
+
+$averageramusagetotal = 0
+
+foreach ($ramuse in $ramusage)
+{
+	$averageramusagetotal += $ramuse.amountoframused
+}
+
+$averageramusagetotal = $averageramusagetotal / $averageramusage
+
+# get unique programs from installed programs list
+
 $installedprograms = $installedprograms | select-object -uniq
 
 # now it's time to make bar graphs out of the data
@@ -447,7 +495,41 @@ foreach ($program in $installedprograms)
 	$Selection.TypeText("$program")
 }
 
-$Report = "$PSScriptRoot\Processed-Logs\$hostname-$date.doc"
+write-host "Average Cpu Load:  $averagecpuloadtotal"
+write-host "Average Ram Usage:  $averageramusagetotal"
+
+if ($bootdrivefull)
+{
+	write-host "Boot drive has less than 15% free space"
+	if (!$(test-path -path "$PSScriptRoot\Processed-Logs\Warning"))
+	{
+		new-item -path "$PSScriptRoot\Processed-Logs\Warning\" -ItemType Directory
+	}
+	$Report = "$PSScriptRoot\Processed-Logs\Warning\$hostname-$date.doc"	
+}
+elseif ($averagecpuloadtotal -ge 90)
+{
+	write-host "Average CPU Usage higher than 90"
+	if (!$(test-path -path "$PSScriptRoot\Processed-Logs\Warning"))
+	{
+		new-item -path "$PSScriptRoot\Processed-Logs\Warning\" -ItemType Directory
+	}
+	$Report = "$PSScriptRoot\Processed-Logs\Warning\$hostname-$date.doc"
+}
+elseif ($averageramusagetotal -ge 90)
+{
+	write-host "Average Ram usage higher than 90"
+	if (!$(test-path -path "$PSScriptRoot\Processed-Logs\Warning"))
+	{
+		new-item -path "$PSScriptRoot\Processed-Logs\Warning\" -ItemType Directory
+	}
+	$Report = "$PSScriptRoot\Processed-Logs\Warning\$hostname-$date.doc"
+}
+else
+{
+	$Report = "$PSScriptRoot\Processed-Logs\$hostname-$date.doc"	
+}
+
 $Document.SaveAs([ref]$Report,[ref]$SaveFormat::wdFormatDocument)
 $word.Quit()
 
